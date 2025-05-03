@@ -79,7 +79,8 @@ public class WorkoutService {
     public void deleteWorkout(Long id) {
         Workout workout = workoutRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Workout not found with id: " + id));
-        workoutRepository.delete(workout);
+        workout.setIsDeleted(true);
+        workoutRepository.save(workout);
     }
 
     @Transactional(readOnly = true)
